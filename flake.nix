@@ -17,11 +17,6 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Everforest
-    everforest = {
-      url = "git+https://codeberg.org/fwinter/everforest-nix.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # neovim nightly
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     # neovim tree-sitter-norg
@@ -88,7 +83,7 @@
         system: username: hostname:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
-            # inherit system;
+            inherit system;
             config = nixpkgsConfig;
             overlays = [
               neovim-nightly-overlay.overlays.default

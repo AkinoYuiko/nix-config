@@ -14,8 +14,7 @@
     ];
     extraPackages = with pkgs; [
       fish-lsp
-      # nixd
-      nil
+      nixd
       nixfmt
       nodePackages.bash-language-server
       oxfmt
