@@ -58,12 +58,14 @@
   environment.shells = [ pkgs.fish ];
 
   environment.systemPackages = with pkgs; [
+    curl
+    dig
     fd
     jq
-    dig
-    curl
-    wget
+    ripgrep
     unzip
+    wget
+    # fonts
     maple-mono.NF-CN
     nerd-fonts.jetbrains-mono
   ];
