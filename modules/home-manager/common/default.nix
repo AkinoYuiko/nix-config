@@ -39,7 +39,6 @@
     opencode
     pipenv
     python3
-    ripgrep
     rustup
     zoxide
   ];
@@ -53,4 +52,6 @@
     flavor = "macchiato";
     accent = "lavender";
   };
+
+  everforest.enable = true;
 }

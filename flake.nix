@@ -12,6 +12,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Everforest NixOS
+    everforest.url = "github:akinoyuiko/everforest-nix";
     # Global catppuccin theme
     catppuccin = {
       url = "github:catppuccin/nix";
@@ -27,9 +29,10 @@
     {
       self,
       darwin,
-      catppuccin,
       home-manager,
       nixpkgs,
+      catppuccin,
+      everforest,
       neovim-nightly-overlay,
       neorg-overlay,
       ...
@@ -98,7 +101,7 @@
           };
           modules = [
             ./home/${username}/${hostname}
-            # everforest.homeModules.everforest
+            everforest.homeModules.everforest
             catppuccin.homeModules.catppuccin
           ];
         };
