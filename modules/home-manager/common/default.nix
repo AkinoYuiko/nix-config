@@ -39,7 +39,6 @@
     opencode
     pipenv
     python3
-    rustup
     zoxide
   ];
 
