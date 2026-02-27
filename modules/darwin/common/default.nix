@@ -68,6 +68,14 @@
     # fonts
     maple-mono.NF-CN
     nerd-fonts.jetbrains-mono
+    # rust
+    (fenix.complete.withComponents [
+      "cargo"
+      "rust-analyzer"
+      "rust-src"
+      "rustc"
+      "rustfmt"
+    ])
   ];
 
   # Enable alternative shell support in nix-darwin.

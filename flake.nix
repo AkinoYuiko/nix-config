@@ -12,6 +12,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    fenix.url = "github:nix-community/fenix";
     # Everforest NixOS
     everforest.url = "github:akinoyuiko/everforest-nix";
     # neovim nightly
@@ -27,6 +28,7 @@
       home-manager,
       nixpkgs,
       everforest,
+      fenix,
       neovim-nightly-overlay,
       neorg-overlay,
       ...
@@ -71,7 +73,10 @@
             darwinModules = "${self}/modules/darwin";
           };
           modules = [
-            { nixpkgs.config = nixpkgsConfig; }
+            {
+              nixpkgs.config = nixpkgsConfig;
+              nixpkgs.overlays = [ fenix.overlays.default ];
+            }
             ./hosts/${hostname}
           ];
         };
