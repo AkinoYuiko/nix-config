@@ -4,5 +4,4 @@
     enable = true;
     shellWrapperName = "y";
   };
-  # catppuccin.yazi.enable = true;
 }

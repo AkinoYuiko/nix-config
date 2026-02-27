@@ -9,6 +9,4 @@
       tabs = "2";
     };
   };
-
-  # catppuccin.bat.enable = true;
 }
