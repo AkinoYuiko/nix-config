@@ -9,8 +9,8 @@
       	enable_tab_bar = false,
       	window_decorations = "RESIZE",
       	window_close_confirmation = "NeverPrompt",
-      	-- color_scheme = "Everforest Dark Hard (Gogh)",
-        color_scheme = "Catppuccin Mocha",
+      	color_scheme = "Everforest Dark Hard (Gogh)",
+        -- color_scheme = "Catppuccin Mocha",
         initial_cols = 150,
         initial_rows = 40,
       	keys = {
@@ -23,5 +23,4 @@
       }
     '';
   };
-  # catppuccin.wezterm.enable = true;
 }

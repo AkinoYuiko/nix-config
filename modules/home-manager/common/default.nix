@@ -42,16 +42,6 @@
     rustup
     zoxide
   ];
-  # Manually manage the gpg-agent configuration file on macOS
-  # home.file.".gnupg/gpg-agent.conf".text = ''
-  #   # pinentry-program ${pkgs.pinentry_mac}/bin/pinentry-mac
-  #   pinentry-program /opt/zerobrew/bin/pinentry-mac
-  # '';
-  # Catppuccin flavor and accent
-  catppuccin = {
-    flavor = "macchiato";
-    accent = "lavender";
-  };
 
   everforest.enable = true;
 }

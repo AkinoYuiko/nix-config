@@ -14,11 +14,6 @@
     };
     # Everforest NixOS
     everforest.url = "github:akinoyuiko/everforest-nix";
-    # Global catppuccin theme
-    catppuccin = {
-      url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # neovim nightly
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     # neovim tree-sitter-norg
@@ -31,7 +26,6 @@
       darwin,
       home-manager,
       nixpkgs,
-      catppuccin,
       everforest,
       neovim-nightly-overlay,
       neorg-overlay,
@@ -102,7 +96,6 @@
           modules = [
             ./home/${username}/${hostname}
             everforest.homeModules.everforest
-            catppuccin.homeModules.catppuccin
           ];
         };
     in
