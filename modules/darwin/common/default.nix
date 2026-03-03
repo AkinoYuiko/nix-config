@@ -71,8 +71,11 @@
     # rust
     (fenix.complete.withComponents [
       "cargo"
+      "clippy"
       "rust-analyzer"
+      "rust-docs"
       "rust-src"
+      "rust-std"
       "rustc"
       "rustfmt"
     ])
