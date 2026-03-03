@@ -9,8 +9,9 @@
     withPython3 = true;
     withRuby = false;
     defaultEditor = true;
-    plugins = [
-      pkgs.vimPlugins.neorg
+    plugins = with pkgs.vimPlugins; [
+      neorg
+      nvim-treesitter
     ];
     extraPackages = with pkgs; [
       fish-lsp
@@ -23,7 +24,6 @@
       shfmt
       stylua
       tombi
-      tree-sitter
       vscode-langservers-extracted
       yaml-language-server
       # Snacks.image
@@ -31,6 +31,7 @@
       imagemagick
       mermaid-cli
       tectonic
+      pkgs.vimPlugins.neorg
     ];
   };
 }
