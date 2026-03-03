@@ -10,7 +10,14 @@
     withRuby = false;
     defaultEditor = true;
     plugins = with pkgs.vimPlugins; [
-      neorg
+      everforest
+      snacks-nvim
+      mini-nvim
+      nvim-autopairs
+      conform-nvim
+      fidget-nvim
+      flash-nvim
+      nvim-lspconfig
       (nvim-treesitter.withPlugins (p: [
         p.bash
         p.css
@@ -67,7 +74,6 @@
       imagemagick
       mermaid-cli
       tectonic
-      pkgs.vimPlugins.neorg
     ];
   };
 }
