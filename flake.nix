@@ -16,9 +16,9 @@
     # Everforest NixOS
     everforest.url = "github:akinoyuiko/everforest-nix";
     # neovim nightly
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     # neovim tree-sitter-norg
-    neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
+    # neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
   };
 
   outputs =
@@ -29,8 +29,8 @@
       nixpkgs,
       everforest,
       fenix,
-      neovim-nightly-overlay,
-      neorg-overlay,
+      # neovim-nightly-overlay,
+      # neorg-overlay,
       ...
     }@inputs:
     let
@@ -89,8 +89,8 @@
             inherit system;
             config = nixpkgsConfig;
             overlays = [
-              neovim-nightly-overlay.overlays.default
-              neorg-overlay.overlays.default
+              # neovim-nightly-overlay.overlays.default
+              # neorg-overlay.overlays.default
             ];
           };
           extraSpecialArgs = {
