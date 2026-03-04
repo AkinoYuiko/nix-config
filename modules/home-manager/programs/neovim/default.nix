@@ -5,8 +5,8 @@
     package = pkgs.neovim;
     viAlias = true;
     vimAlias = true;
-    withNodeJs = true;
-    withPython3 = true;
+    withNodeJs = false;
+    withPython3 = false;
     withRuby = false;
     defaultEditor = true;
     plugins = with pkgs.vimPlugins; [
