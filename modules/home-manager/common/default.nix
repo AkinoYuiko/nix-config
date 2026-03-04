@@ -35,7 +35,7 @@
   # Ensure common packages are installed
   home.packages = with pkgs; [
     keychain
-    nodejs_latest
+    # nodejs_latest
     opencode
     pipenv
     python3
