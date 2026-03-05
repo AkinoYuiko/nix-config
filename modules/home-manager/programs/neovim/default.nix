@@ -17,6 +17,7 @@
       conform-nvim
       fidget-nvim
       flash-nvim
+      neorg
       nvim-lspconfig
       (nvim-treesitter.withPlugins (p: [
         p.bash
@@ -57,6 +58,7 @@
       ]))
     ];
     extraPackages = with pkgs; [
+      emmylua-ls
       fish-lsp
       nixd
       nixfmt
