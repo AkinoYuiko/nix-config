@@ -34,9 +34,10 @@
   };
   # Ensure common packages are installed
   home.packages = with pkgs; [
+    ffmpeg
     keychain
     # nodejs_latest
-    opencode
+    # opencode
     pipenv
     python3
     zoxide
