@@ -4,7 +4,7 @@
     enable = true;
     brews = [
       "ddns-go"
-      "git-flow"
+      # "git-flow"
       "nginx"
     ];
     casks = [];
