@@ -17,8 +17,6 @@
     everforest.url = "github:akinoyuiko/everforest-nix";
     # neovim nightly
     # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    # neovim tree-sitter-norg
-    neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
   };
 
   outputs =
@@ -30,7 +28,6 @@
       everforest,
       fenix,
       # neovim-nightly-overlay,
-      neorg-overlay,
       ...
     }@inputs:
     let
@@ -90,7 +87,6 @@
             config = nixpkgsConfig;
             overlays = [
               # neovim-nightly-overlay.overlays.default
-              neorg-overlay.overlays.default
             ];
           };
           extraSpecialArgs = {
