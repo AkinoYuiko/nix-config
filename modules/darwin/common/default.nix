@@ -80,6 +80,9 @@
       "rustfmt"
     ])
   ];
+  fonts.packages = with pkgs; [
+    lxgw-wenkai
+  ];
 
   # Enable alternative shell support in nix-darwin.
   programs.fish.enable = true;
