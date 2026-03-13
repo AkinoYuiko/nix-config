@@ -65,9 +65,6 @@
     ripgrep
     unzip
     wget
-    # fonts
-    maple-mono.NF-CN
-    nerd-fonts.jetbrains-mono
     # rust
     (fenix.complete.withComponents [
       "cargo"
@@ -82,6 +79,8 @@
   ];
   fonts.packages = with pkgs; [
     lxgw-wenkai
+    maple-mono.NF-CN
+    jetbrains-mono
   ];
 
   # Enable alternative shell support in nix-darwin.
