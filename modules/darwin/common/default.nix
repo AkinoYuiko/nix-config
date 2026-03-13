@@ -78,9 +78,10 @@
     ])
   ];
   fonts.packages = with pkgs; [
-    lxgw-wenkai
     maple-mono.NF-CN
     jetbrains-mono
+    lxgw-wenkai
+    smiley-sans
   ];
 
   # Enable alternative shell support in nix-darwin.
