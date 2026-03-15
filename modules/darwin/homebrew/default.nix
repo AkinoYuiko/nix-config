@@ -9,6 +9,11 @@
       # "git-flow"
       "nginx"
     ];
-    casks = [ ];
+    taps = [
+      "manaflow-ai/cmux"
+    ];
+    casks = [
+      "cmux"
+    ];
   };
 }
