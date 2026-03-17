@@ -8,10 +8,17 @@
         email = userConfig.email;
         name = userConfig.fullName;
       };
+      core = {
+        editor = "nvim";
+        autocrlf = "input";
+      };
+      init.defualtBranch = "main";
+      gpg.format = "ssh";
       # pull.rebase = true;
     };
     signing = {
-      key = userConfig.gitKey;
+      # key = userConfig.gitKey;
+      key = "~/.ssh/id_ed25519.pub";
       signByDefault = true;
     };
     ignores = [
@@ -21,15 +28,15 @@
     ];
   };
 
-  programs.delta = {
-    enable = true;
-    enableGitIntegration = true;
-    options = {
-      keep-plus-minus-markers = true;
-      light = false;
-      line-numbers = true;
-      navigate = true;
-      width = 280;
-    };
-  };
+  # programs.delta = {
+  #   enable = true;
+  #   enableGitIntegration = true;
+  #   options = {
+  #     keep-plus-minus-markers = true;
+  #     light = false;
+  #     line-numbers = true;
+  #     navigate = true;
+  #     width = 280;
+  #   };
+  # };
 }
