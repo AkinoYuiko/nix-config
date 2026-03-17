@@ -9,7 +9,6 @@
         name = userConfig.fullName;
       };
       core = {
-        editor = "nvim";
         autocrlf = "input";
       };
       init.defualtBranch = "main";
