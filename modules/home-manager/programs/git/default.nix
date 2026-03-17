@@ -12,7 +12,10 @@
         autocrlf = "input";
       };
       init.defualtBranch = "main";
-      gpg.format = "ssh";
+      gpg = {
+        format = "ssh";
+        ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+      };
       # pull.rebase = true;
     };
     signing = {
