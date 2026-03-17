@@ -42,7 +42,6 @@
           wallpaper = ./files/wallpaper.png;
           email = "civi@rcg.fun";
           fullName = "Civi";
-          gitKey = "94DC09E76258468C";
           name = "momo";
         };
       };
