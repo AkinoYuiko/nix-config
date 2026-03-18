@@ -11,7 +11,7 @@
     ../programs/fastfetch
     ../programs/fzf
     ../programs/git
-    ../programs/gpg
+    # ../programs/gpg
     ../programs/lazygit
     ../programs/lsd
     ../programs/neovim
