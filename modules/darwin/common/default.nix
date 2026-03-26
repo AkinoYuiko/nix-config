@@ -63,6 +63,7 @@
     fd
     jq
     ripgrep
+    tldr
     unzip
     wget
     # rust
