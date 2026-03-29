@@ -35,6 +35,7 @@
   # Ensure common packages are installed
   home.packages = with pkgs; [
     ffmpeg
+    ghostty-bin
     keychain
     # nodejs_latest
     # opencode
