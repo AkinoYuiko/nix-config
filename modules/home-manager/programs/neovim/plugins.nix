@@ -4,7 +4,7 @@ pkgs: with pkgs.vimPlugins; [
   mini-nvim
   nvim-autopairs
   conform-nvim
-  fidget-nvim
+  # fidget-nvim
   flash-nvim
   {
     plugin = nvim-lspconfig;
