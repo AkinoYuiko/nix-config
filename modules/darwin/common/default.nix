@@ -61,6 +61,7 @@
     curl
     dig
     fd
+    jd-diff-patch
     jq
     ripgrep
     tldr
