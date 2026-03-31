@@ -37,7 +37,6 @@
     ffmpeg
     ghostty-bin
     keychain
-    # nodejs_latest
     # opencode
     pipenv
     python3

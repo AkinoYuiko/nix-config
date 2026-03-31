@@ -3,7 +3,7 @@ pkgs: with pkgs; [
   fish-lsp
   nixd
   nixfmt
-  nodePackages.bash-language-server
+  bash-language-server
   oxfmt
   oxlint
   shellcheck
