@@ -18,7 +18,7 @@
     ../programs/starship
     ../programs/tirith
     ../programs/tmux
-    ../programs/wezterm
+    # ../programs/wezterm
     ../programs/yazi
   ];
   # Nicely reload system units when changing configs
