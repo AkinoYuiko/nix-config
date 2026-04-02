@@ -1,9 +1,11 @@
-{ ... }:
 {
   homebrew = {
     enable = true;
-    onActivation.autoUpdate = true;
-    onActivation.upgrade = true;
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+      cleanup = "zap";
+    };
     brews = [
       "ddns-go"
       # "git-flow"
