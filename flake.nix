@@ -15,8 +15,6 @@
     fenix.url = "github:nix-community/fenix";
     # Everforest NixOS
     everforest.url = "github:akinoyuiko/everforest-nix";
-    # neovim nightly
-    # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs =
@@ -27,7 +25,6 @@
       nixpkgs,
       everforest,
       fenix,
-      # neovim-nightly-overlay,
       ...
     }@inputs:
     let
@@ -84,9 +81,7 @@
           pkgs = import nixpkgs {
             inherit system;
             config = nixpkgsConfig;
-            overlays = [
-              # neovim-nightly-overlay.overlays.default
-            ];
+            # overlays = [ ];
           };
           extraSpecialArgs = {
             inherit inputs outputs;
