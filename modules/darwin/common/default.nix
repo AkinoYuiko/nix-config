@@ -64,7 +64,7 @@
     jd-diff-patch
     jq
     ripgrep
-    tldr
+    tealdeer
     unzip
     wget
     # rust
