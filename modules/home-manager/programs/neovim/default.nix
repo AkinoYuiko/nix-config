@@ -7,6 +7,7 @@
     withNodeJs = false;
     withPython3 = false;
     defaultEditor = true;
+    sideloadInitLua = true;
     plugins = import ./plugins.nix pkgs;
     extraPackages = import ./packages.nix pkgs;
   };
