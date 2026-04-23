@@ -1,5 +1,6 @@
 pkgs: with pkgs; [
-  emmylua-ls
+  # emmylua-ls
+  lua-language-server
   fish-lsp
   nixd
   nixfmt
