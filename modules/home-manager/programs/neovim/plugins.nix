@@ -3,12 +3,12 @@ pkgs: with pkgs.vimPlugins; [
   snacks-nvim
   mini-nvim
   nvim-autopairs
-  blink-cmp
   conform-nvim
   # fidget-nvim
   flash-nvim
+  nvim-lspconfig
   {
-    plugin = nvim-lspconfig;
+    plugin = blink-cmp;
     optional = true;
   }
   {
