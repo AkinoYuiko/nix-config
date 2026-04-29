@@ -3,6 +3,7 @@ pkgs: with pkgs.vimPlugins; [
   snacks-nvim
   mini-nvim
   nvim-autopairs
+  blink-cmp
   conform-nvim
   # fidget-nvim
   flash-nvim
