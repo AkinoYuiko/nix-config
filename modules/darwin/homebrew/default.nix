@@ -4,7 +4,7 @@
     onActivation = {
       autoUpdate = true;
       upgrade = true;
-      cleanup = "zap";
+      # cleanup = "zap";
     };
     brews = [
       "ddns-go"
@@ -12,10 +12,10 @@
       "nginx"
     ];
     taps = [
-      "manaflow-ai/cmux"
+      # "manaflow-ai/cmux"
     ];
     casks = [
-      "cmux"
+      # "cmux"
     ];
   };
 }
