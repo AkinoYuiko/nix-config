@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   programs.neovim = {
     enable = true;
@@ -8,7 +8,7 @@
     withPython3 = false;
     defaultEditor = true;
     sideloadInitLua = true;
-    plugins = import ./plugins.nix pkgs;
+    plugins = import ./plugins.nix { inherit pkgs inputs; };
     extraPackages = import ./packages.nix pkgs;
   };
 }

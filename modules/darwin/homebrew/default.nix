@@ -1,6 +1,7 @@
 {
   homebrew = {
     enable = true;
+    enableFishIntegration = true;
     onActivation = {
       autoUpdate = true;
       upgrade = true;
@@ -15,6 +16,7 @@
       # "manaflow-ai/cmux"
     ];
     casks = [
+      "codex"
       # "cmux"
     ];
   };

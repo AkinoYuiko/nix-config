@@ -15,6 +15,11 @@
     fenix.url = "github:nix-community/fenix";
     # Everforest NixOS
     everforest.url = "github:akinoyuiko/everforest-nix";
+    # Codex.nvin
+    codex-nvim = {
+      url = "github:johnseth97/codex.nvim";
+      flake = false;
+    };
   };
 
   outputs =
@@ -46,6 +51,8 @@
       mkNixosConfiguration =
         username: hostname:
         nixpkgs.lib.nixosSystem {
+          useGlobalPkgs = true;
+          useUserPackages = true;
           specialArgs = {
             inherit inputs outputs hostname;
             userConfig = users.${username};
