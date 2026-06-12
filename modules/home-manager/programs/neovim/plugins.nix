@@ -29,14 +29,19 @@ with pkgs.vimPlugins;
     type = "lua";
     config = ''
       require("codex").setup({
+        keymap = {
+          toggle = nil,
+          quit = "<c-q>",
+        },
         border = 'single',
         width = 0.85,
         height = 0.85,
-        panel = false,
+        panel = true,
         use_buffer = false;
         autoinstall = false;
         model = nil;
       })
+      vim.keymap.set({"n","t"},"<leader>o","<cmd>CodexToggle<cr>")
     '';
   }
 ]
