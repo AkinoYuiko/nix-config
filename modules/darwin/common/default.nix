@@ -68,16 +68,11 @@
     unzip
     wget
     # rust
-    (fenix.complete.withComponents [
-      "cargo"
-      "clippy"
-      "rust-analyzer"
-      "rust-docs"
-      "rust-src"
-      "rust-std"
-      "rustc"
-      "rustfmt"
-    ])
+    cargo
+    clippy
+    rust-analyzer
+    rustc
+    rustfmt
   ];
   fonts.packages = with pkgs; [
     maple-mono.NF-CN

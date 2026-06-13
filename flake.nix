@@ -12,7 +12,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    fenix.url = "github:nix-community/fenix";
     # Everforest NixOS
     everforest.url = "github:akinoyuiko/everforest-nix";
     # Codex.nvin
@@ -29,7 +28,6 @@
       home-manager,
       nixpkgs,
       everforest,
-      fenix,
       ...
     }@inputs:
     let
@@ -75,7 +73,6 @@
           modules = [
             {
               nixpkgs.config = nixpkgsConfig;
-              nixpkgs.overlays = [ fenix.overlays.default ];
             }
             ./hosts/${hostname}
           ];
