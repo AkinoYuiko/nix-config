@@ -5,6 +5,7 @@
     settings = {
       enabled_providers = [ "codexcn" ];
       lsp = true;
+      model = "codexcn/gpt-5.5";
       provider.codexcn = {
         npm = "@ai-sdk/openai";
         name = "CodexCN";
