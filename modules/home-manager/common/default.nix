@@ -15,6 +15,7 @@
     ../programs/lazygit
     ../programs/lsd
     ../programs/neovim
+    ../programs/opencode
     ../programs/starship
     ../programs/tirith
     ../programs/tmux
