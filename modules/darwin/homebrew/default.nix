@@ -11,6 +11,7 @@
       "ddns-go"
       # "git-flow"
       "nginx"
+      "node"
     ];
     taps = [
       # "manaflow-ai/cmux"
