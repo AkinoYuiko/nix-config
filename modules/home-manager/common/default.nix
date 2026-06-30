@@ -15,9 +15,9 @@
     ../programs/lazygit
     ../programs/lsd
     ../programs/neovim
-    ../programs/opencode
+    # ../programs/opencode
     ../programs/starship
-    ../programs/tirith
+    # ../programs/tirith
     ../programs/tmux
     # ../programs/wezterm
     ../programs/yazi
@@ -34,16 +34,16 @@
         "/home/${userConfig.name}";
   };
   # Ensure common packages are installed
-  home.packages = with pkgs; [
-    ffmpeg
-    gh
-    ghostty-bin
-    keychain
-    # opencode
-    pipenv
-    python3
-    zoxide
-  ];
+  # home.packages = with pkgs; [
+  #   ffmpeg
+  #   gh
+  #   ghostty-bin
+  #   keychain
+  #   opencode
+  #   pipenv
+  #   python3
+  #   zoxide
+  # ];
 
   everforest.enable = true;
 }
