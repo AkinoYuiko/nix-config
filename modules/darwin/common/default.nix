@@ -67,6 +67,13 @@
     tealdeer
     unzip
     wget
+    ffmpeg
+    gh
+    keychain
+    nixfmt
+    stylua
+    tirith
+    zoxide
     # rust
     cargo
     clippy

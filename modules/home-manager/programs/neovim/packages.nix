@@ -11,13 +11,12 @@ with pkgs;
   lua-language-server
   fish-lsp
   nixd
-  nixfmt
   bash-language-server
   oxfmt
   oxlint
   shellcheck
   shfmt
-  stylua
+  # stylua # remove due to cargo exists
   tombi
   vscode-json-language-server-node24
   vscode-langservers-extracted
