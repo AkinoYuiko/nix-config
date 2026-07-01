@@ -11,6 +11,10 @@
     sensibleOnTop = false;
     terminal = "tmux-256color";
     extraConfig = ''
+      # Enable extended key reporting for modified Enter keys
+      set -g extended-keys on
+      set -g extended-keys-format csi-u
+
       # Set the prefix to `ctrl + q` instead of `ctrl + b`
       set -g prefix C-q
       unbind C-b
