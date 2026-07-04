@@ -62,8 +62,8 @@
     dig
     fd
     ffmpeg
-    gh
-    jd-diff-patch
+    # gh
+    # jd-diff-patch
     jq
     # keychain
     nixfmt
@@ -74,12 +74,6 @@
     unzip
     wget
     zoxide
-    # rust
-    cargo
-    clippy
-    rust-analyzer
-    rustc
-    rustfmt
   ];
   fonts.packages = with pkgs; [
     maple-mono.NF-CN
