@@ -61,18 +61,18 @@
     curl
     dig
     fd
-    jd-diff-patch
-    jq
-    ripgrep
-    tealdeer
-    unzip
-    wget
     ffmpeg
     gh
-    keychain
+    jd-diff-patch
+    jq
+    # keychain
     nixfmt
+    ripgrep
     stylua
+    tealdeer
     tirith
+    unzip
+    wget
     zoxide
     # rust
     cargo
