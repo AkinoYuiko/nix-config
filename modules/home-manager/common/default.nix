@@ -45,5 +45,9 @@
   #   zoxide
   # ];
 
-  everforest.enable = true;
+  everforest = {
+    enable = true;
+    mode = "dark";
+    contrast = "hard";
+  };
 }

@@ -13,7 +13,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Everforest NixOS
-    everforest.url = "github:akinoyuiko/everforest-nix";
+    everforest = {
+      url = "github:AkinoYuiko/everforest-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
     # Codex.nvin
     codex-nvim = {
       url = "github:johnseth97/codex.nvim";
@@ -94,7 +98,7 @@
           };
           modules = [
             ./home/${username}/${hostname}
-            everforest.homeModules.everforest
+            everforest.homeManagerModules.default
           ];
         };
     in
