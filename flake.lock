@@ -46,11 +46,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783872387,
-        "narHash": "sha256-CoMJpKcdQg6ZvO89tbv5iyoGID4+5fplfQ7OHlkCjk0=",
+        "lastModified": 1783906178,
+        "narHash": "sha256-F7htXzuSCz5p1znVOpc5ah0Ji2zbVXmIUtoQEBDInBk=",
         "owner": "AkinoYuiko",
         "repo": "everforest-darwin",
-        "rev": "078fefbdcbf30815e8691f65ee92e26a16b37570",
+        "rev": "fa4ddc6ebf1dd59ee278ca6ca641bc998d31f6a3",
         "type": "github"
       },
       "original": {
@@ -81,11 +81,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1783791668,
-        "narHash": "sha256-zbcZ1dmBTPfJ7Mlqh/yLEPGpgJnwuv4Xr1xucy2WqMA=",
+        "lastModified": 1783816212,
+        "narHash": "sha256-2aZisVTVGSFEk3MYcOiWQp3zvwyzbqpktB69Rcfp150=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "716c7a2664ca8325617b8a7fbb609273f2c4cae7",
+        "rev": "3b32825de172d0bc85664f495edb096b10862524",
         "type": "github"
       },
       "original": {
