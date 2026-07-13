@@ -1,4 +1,4 @@
-{ userConfig, ... }:
+{ userConfig, pkgs, ... }:
 {
   # Install git via home-manager module
   programs.git = {
@@ -12,6 +12,16 @@
         autocrlf = "input";
       };
       init.defualtBranch = "main";
+      credential = {
+        "https://github.com".helper = [
+          ""
+          "!${pkgs.gh}/bin/gh auth git-credential"
+        ];
+        "https://gist.github.com".helper = [
+          ""
+          "!${pkgs.gh}/bin/gh auth git-credential"
+        ];
+      };
       gpg = {
         format = "ssh";
         ssh.allowedSignersFile = "~/.ssh/allowed_signers";
