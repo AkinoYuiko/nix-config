@@ -47,7 +47,6 @@
 
   everforest = {
     enable = true;
-    mode = "dark";
     contrast = "hard";
   };
 }
