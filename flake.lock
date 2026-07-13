@@ -46,11 +46,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783906178,
-        "narHash": "sha256-F7htXzuSCz5p1znVOpc5ah0Ji2zbVXmIUtoQEBDInBk=",
+        "lastModified": 1783925305,
+        "narHash": "sha256-nZojiWfv9R2WaQc+PZgUywFmfA25zkO+zeCnGS2iQtA=",
         "owner": "AkinoYuiko",
         "repo": "everforest-darwin",
-        "rev": "fa4ddc6ebf1dd59ee278ca6ca641bc998d31f6a3",
+        "rev": "a5c2f64809d593bd6e3fe49a2ebc1e86deaf362e",
         "type": "github"
       },
       "original": {
