@@ -62,6 +62,23 @@
 
       # Refresh status-line time periodically
       set -g status-interval 2
+
+      # Tmux behavior and status-line layout are owned by this personal configuration.
+      # Everforest color values and color-only styles come from the theme module.
+      set -as terminal-features ',xterm-256color:RGB'
+      set -g status on
+
+      set -g status-left-style none
+      set -g status-left-length 60
+      set -g status-left '#[fg=#{@everforest_bg_dim},bg=#{@everforest_green},bold] #S #[fg=#{@everforest_green},bg=#{@everforest_bg2},nobold]#[fg=#{@everforest_green},bg=#{@everforest_bg2},bold] #(whoami) #[fg=#{@everforest_bg2},bg=#{@everforest_bg0},nobold]'
+
+      set -g status-right-style none
+      set -g status-right-length 150
+      set -g status-right '#[fg=#{@everforest_bg2}]#[fg=#{@everforest_fg},bg=#{@everforest_bg2}] %m-%d %H:%M #[fg=#{@everforest_aqua},bg=#{@everforest_bg2},bold]#[fg=#{@everforest_bg_dim},bg=#{@everforest_aqua},bold] #h '
+
+      set -g window-status-separator '#[fg=#{@everforest_grey2},bg=#{@everforest_bg0}] '
+      set -g window-status-format '#[fg=#{@everforest_grey0},bg=#{@everforest_bg0}] #I  #[fg=#{@everforest_grey0},bg=#{@everforest_bg0}]#W '
+      set -g window-status-current-format '#[fg=#{@everforest_bg0},bg=#{@everforest_bg_green}]#[fg=#{@everforest_fg},bg=#{@everforest_bg_green}] #I  #[fg=#{@everforest_fg},bg=#{@everforest_bg_green},bold]#W #[fg=#{@everforest_bg_green},bg=#{@everforest_bg0},nobold]'
     '';
   };
 }
