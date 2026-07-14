@@ -1,21 +1,52 @@
+# Default entry point
 .DEFAULT_GOAL := help
 
+# Configuration targets. Override from the command line when necessary, for
+# example: make switch HOST=moni USERNAME=momo
 HOST ?= $(shell hostname -s)
 USERNAME ?= $(shell id -un)
 DARWIN_TARGET ?= .\#$(HOST)
 HOME_TARGET ?= .\#$(USERNAME)@$(HOST)
 
+# Tooling
 NIX ?= nix
+NIXFMT ?= nixfmt
 NIX_FLAGS ?= --extra-experimental-features "nix-command flakes"
 NIX_CMD = $(NIX) $(NIX_FLAGS)
+NIX_FILES := $(shell find . -type f -name '*.nix' \
+	-not -path './.git/*' \
+	-not -path './.codegraph/*' | sort)
 
-.PHONY: help install-nix install-nix-darwin bootstrap-mac \
+.PHONY: help format format-check check \
+	install-nix install-nix-darwin bootstrap-mac \
 	darwin-rebuild home-manager-switch switch \
 	nix-gc flake-update flake-check
 
+# Discovery and validation
 help: ## Show available targets
-	@awk 'BEGIN { FS = ":.*## "; printf "Usage: make \033[36m<target>\033[0m\n\nTargets:\n" } /^[a-zA-Z0-9_-]+:.*## / { printf "  \033[36m%-22s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+	@printf 'Usage: make \033[36m<target>\033[0m\n\nTargets:\n'
+	@awk 'BEGIN { FS = ":.*## " } \
+		/^[a-zA-Z0-9_-]+:.*## / { \
+			printf "  \033[36m%-22s\033[0m %s\n", $$1, $$2 \
+		}' $(MAKEFILE_LIST)
 
+format: ## Format all Nix files
+	@printf 'Formatting Nix files...\n'
+	@$(NIXFMT) $(NIX_FILES)
+
+format-check: ## Check Nix formatting without changing files
+	@printf 'Checking Nix formatting...\n'
+	@$(NIXFMT) --check $(NIX_FILES)
+
+check: ## Run all non-mutating checks
+	@$(MAKE) --no-print-directory format-check
+	@$(MAKE) --no-print-directory flake-check
+
+flake-check: ## Check the flake configuration
+	@printf 'Checking Flake outputs...\n'
+	@$(NIX_CMD) flake check --show-trace
+
+# Installation and bootstrap
 install-nix: ## Install the Nix package manager
 	curl --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
 		https://nixos.org/nix/install | sh -s -- --daemon --yes
@@ -24,10 +55,13 @@ install-nix-darwin: ## Install and activate nix-darwin
 	sudo $(NIX_CMD) run nix-darwin -- switch --flake $(DARWIN_TARGET)
 
 bootstrap-mac: ## Install Nix and nix-darwin
-	$(MAKE) install-nix
-	. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; \
-		$(MAKE) install-nix-darwin
+	@$(MAKE) --no-print-directory install-nix
+	@. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; \
+		$(MAKE) --no-print-directory install-nix-darwin
 
+# Activation
+# These targets change the running machine. Use them only when activation is
+# explicitly requested.
 darwin-rebuild: ## Activate the nix-darwin configuration
 	sudo darwin-rebuild switch --flake $(DARWIN_TARGET)
 
@@ -35,14 +69,12 @@ home-manager-switch: ## Activate the Home Manager configuration
 	home-manager switch --flake $(HOME_TARGET)
 
 switch: ## Activate system and Home Manager configurations
-	$(MAKE) darwin-rebuild
-	$(MAKE) home-manager-switch
+	@$(MAKE) --no-print-directory darwin-rebuild
+	@$(MAKE) --no-print-directory home-manager-switch
 
-nix-gc: ## Delete old generations and collect garbage
-	nix-collect-garbage --delete-old
-
+# Maintenance
 flake-update: ## Update all flake inputs
 	$(NIX_CMD) flake update
 
-flake-check: ## Check the flake configuration
-	$(NIX_CMD) flake check --show-trace
+nix-gc: ## Delete old generations and collect garbage
+	nix-collect-garbage --delete-old
