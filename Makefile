@@ -1,65 +1,48 @@
-# Variables (override these as needed)
-HOSTNAME ?= $(shell hostname)
-FLAKE ?= .#$(HOSTNAME)
-HOME_TARGET ?= $(FLAKE)
-EXPERIMENTAL ?= --extra-experimental-features "nix-command flakes"
+.DEFAULT_GOAL := help
 
-.PHONY: help install-nix install-nix-darwin darwin-rebuild \
-	home-manager-switch nix-gc flake-update flake-check bootstrap-mac
-# NixOS target is currently disabled.
-# .PHONY: nixos-rebuild
+HOST ?= $(shell hostname -s)
+USERNAME ?= $(shell id -un)
+DARWIN_TARGET ?= .\#$(HOST)
+HOME_TARGET ?= .\#$(USERNAME)@$(HOST)
 
-help:
-	@echo "Available targets:"
-	@echo "  install-nix          - Install the Nix package manager"
-	@echo "  install-nix-darwin   - Install nix-darwin using flake $(FLAKE)"
-	@echo "  darwin-rebuild       - Rebuild the nix-darwin configuration"
-# 	@echo "  nixos-rebuild        - Rebuild the NixOS configuration"
-	@echo "  home-manager-switch  - Switch the Home Manager configuration using flake $(HOME_TARGET)"
-	@echo "  nix-gc               - Run Nix garbage collection"
-	@echo "  flake-update         - Update flake inputs"
-	@echo "  flake-check          - Check the flake for issues"
-	@echo "  bootstrap-mac        - Install Nix and nix-darwin sequentially"
+NIX ?= nix
+NIX_FLAGS ?= --extra-experimental-features "nix-command flakes"
+NIX_CMD = $(NIX) $(NIX_FLAGS)
 
-install-nix:
-	@echo "Installing Nix..."
-	@sudo curl -L https://nixos.org/nix/install | sh -s -- --daemon --yes
-	@echo "Nix installation complete."
+.PHONY: help install-nix install-nix-darwin bootstrap-mac \
+	darwin-rebuild home-manager-switch switch \
+	nix-gc flake-update flake-check
 
-install-nix-darwin:
-	@echo "Installing nix-darwin..."
-	@sudo nix run nix-darwin $(EXPERIMENTAL) -- switch --flake $(FLAKE)
-	@echo "nix-darwin installation complete."
+help: ## Show available targets
+	@awk 'BEGIN { FS = ":.*## "; printf "Usage: make \033[36m<target>\033[0m\n\nTargets:\n" } /^[a-zA-Z0-9_-]+:.*## / { printf "  \033[36m%-22s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
-darwin-rebuild:
-	@echo "Rebuilding darwin configuration..."
-	@sudo darwin-rebuild switch --flake $(FLAKE)
-	@echo "Darwin rebuild complete."
+install-nix: ## Install the Nix package manager
+	curl --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
+		https://nixos.org/nix/install | sh -s -- --daemon --yes
 
-# NixOS rebuild entry is currently disabled.
-# nixos-rebuild:
-# 	@echo "Rebuilding NixOS configuration..."
-# 	@sudo nixos-rebuild switch --flake $(FLAKE)
-# 	@echo "NixOS rebuild complete."
+install-nix-darwin: ## Install and activate nix-darwin
+	sudo $(NIX_CMD) run nix-darwin -- switch --flake $(DARWIN_TARGET)
 
-home-manager-switch:
-	@echo "Switching Home Manager configuration..."
-	@home-manager switch --flake $(HOME_TARGET)
-	@echo "Home Manager switch complete."
+bootstrap-mac: ## Install Nix and nix-darwin
+	$(MAKE) install-nix
+	. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; \
+		$(MAKE) install-nix-darwin
 
-nix-gc:
-	@echo "Collecting Nix garbage..."
-	@nix-collect-garbage -d
-	@echo "Garbage collection complete."
+darwin-rebuild: ## Activate the nix-darwin configuration
+	sudo darwin-rebuild switch --flake $(DARWIN_TARGET)
 
-flake-update:
-	@echo "Updating flake inputs..."
-	@nix flake update
-	@echo "Flake update complete."
+home-manager-switch: ## Activate the Home Manager configuration
+	home-manager switch --flake $(HOME_TARGET)
 
-flake-check:
-	@echo "Checking flake..."
-	@nix flake check
-	@echo "Flake check complete."
+switch: ## Activate system and Home Manager configurations
+	$(MAKE) darwin-rebuild
+	$(MAKE) home-manager-switch
 
-bootstrap-mac: install-nix install-nix-darwin
+nix-gc: ## Delete old generations and collect garbage
+	nix-collect-garbage --delete-old
+
+flake-update: ## Update all flake inputs
+	$(NIX_CMD) flake update
+
+flake-check: ## Check the flake configuration
+	$(NIX_CMD) flake check --show-trace
