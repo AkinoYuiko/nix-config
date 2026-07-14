@@ -18,9 +18,10 @@ NIX_FILES := $(shell find . -type f -name '*.nix' \
 	-not -path './.codegraph/*' | sort)
 
 .PHONY: help format format-check check \
+	build darwin-build home-manager-build \
 	install-nix install-nix-darwin bootstrap-mac \
 	darwin-rebuild home-manager-switch switch \
-	nix-gc flake-update flake-check
+	nix-gc flake-update flake-update-input flake-check
 
 # Discovery and validation
 help: ## Show available targets
@@ -46,6 +47,19 @@ flake-check: ## Check the flake configuration
 	@printf 'Checking Flake outputs...\n'
 	@$(NIX_CMD) flake check --show-trace
 
+# Build
+build: ## Build Darwin and Home Manager configurations
+	@$(MAKE) --no-print-directory darwin-build
+	@$(MAKE) --no-print-directory home-manager-build
+
+darwin-build: ## Build the nix-darwin configuration
+	@printf 'Building nix-darwin configuration...\n'
+	@$(NIX_CMD) build --no-link '.#darwinConfigurations.$(HOST).system'
+
+home-manager-build: ## Build the Home Manager configuration
+	@printf 'Building Home Manager configuration...\n'
+	@$(NIX_CMD) build --no-link '.#homeConfigurations."$(USERNAME)@$(HOST)".activationPackage'
+
 # Installation and bootstrap
 install-nix: ## Install the Nix package manager
 	curl --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
@@ -68,13 +82,21 @@ darwin-rebuild: ## Activate the nix-darwin configuration
 home-manager-switch: ## Activate the Home Manager configuration
 	home-manager switch --flake $(HOME_TARGET)
 
-switch: ## Activate system and Home Manager configurations
+switch: ## Build and activate system and Home Manager configurations
+	@$(MAKE) --no-print-directory build
 	@$(MAKE) --no-print-directory darwin-rebuild
 	@$(MAKE) --no-print-directory home-manager-switch
 
 # Maintenance
 flake-update: ## Update all flake inputs
 	$(NIX_CMD) flake update
+
+flake-update-input: ## Update one flake input (INPUT=nixpkgs)
+	@test -n "$(INPUT)" || { \
+		printf 'INPUT is required, for example: make flake-update-input INPUT=nixpkgs\n' >&2; \
+		exit 2; \
+	}
+	$(NIX_CMD) flake update $(INPUT)
 
 nix-gc: ## Delete old generations and collect garbage
 	nix-collect-garbage --delete-old
