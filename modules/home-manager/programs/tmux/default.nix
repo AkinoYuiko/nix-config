@@ -1,6 +1,4 @@
-{ ... }:
 {
-  # Tmux terminal multiplexer configuration
   programs.tmux = {
     enable = true;
     baseIndex = 1;

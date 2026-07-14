@@ -1,9 +1,13 @@
 {
-  userConfig,
   lib,
   pkgs,
+  userConfig,
   ...
 }:
+let
+  inherit (userConfig) name;
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+in
 {
   imports = [
     ../programs/bat
@@ -11,39 +15,20 @@
     ../programs/fastfetch
     ../programs/fzf
     ../programs/git
-    # ../programs/gpg
     ../programs/lazygit
     ../programs/lsd
     ../programs/neovim
-    # ../programs/opencode
     ../programs/starship
-    # ../programs/tirith
     ../programs/tmux
-    # ../programs/wezterm
     ../programs/yazi
   ];
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) "sd-switch";
-  # Home-Manager configuration for the user's home environment
+
+  systemd.user.startServices = lib.mkIf (!isDarwin) "sd-switch";
+
   home = {
-    username = userConfig.name;
-    homeDirectory =
-      if pkgs.stdenv.hostPlatform.isDarwin then
-        "/Users/${userConfig.name}"
-      else
-        "/home/${userConfig.name}";
+    username = name;
+    homeDirectory = "${if isDarwin then "/Users" else "/home"}/${name}";
   };
-  # Ensure common packages are installed
-  # home.packages = with pkgs; [
-  #   ffmpeg
-  #   gh
-  #   ghostty-bin
-  #   keychain
-  #   opencode
-  #   pipenv
-  #   python3
-  #   zoxide
-  # ];
 
   everforest = {
     enable = true;

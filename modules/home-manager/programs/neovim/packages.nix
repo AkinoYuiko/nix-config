@@ -1,6 +1,4 @@
-pkgs:
-with pkgs;
-[
+pkgs: with pkgs; [
   # emmylua-ls
   lua-language-server
   fish-lsp
@@ -10,7 +8,6 @@ with pkgs;
   oxlint
   shellcheck
   shfmt
-  # stylua # remove due to cargo exists
   tombi
   vscode-langservers-extracted
   yaml-language-server

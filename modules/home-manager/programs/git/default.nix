@@ -1,35 +1,34 @@
-{ userConfig, pkgs, ... }:
 {
-  # Install git via home-manager module
+  pkgs,
+  userConfig,
+  ...
+}:
+let
+  credentialHelper = [
+    ""
+    "!${pkgs.gh}/bin/gh auth git-credential"
+  ];
+in
+{
   programs.git = {
     enable = true;
     settings = {
       user = {
-        email = userConfig.email;
+        inherit (userConfig) email;
         name = userConfig.fullName;
       };
-      core = {
-        autocrlf = "input";
-      };
-      init.defualtBranch = "main";
+      core.autocrlf = "input";
+      init.defaultBranch = "main";
       credential = {
-        "https://github.com".helper = [
-          ""
-          "!${pkgs.gh}/bin/gh auth git-credential"
-        ];
-        "https://gist.github.com".helper = [
-          ""
-          "!${pkgs.gh}/bin/gh auth git-credential"
-        ];
+        "https://github.com".helper = credentialHelper;
+        "https://gist.github.com".helper = credentialHelper;
       };
       gpg = {
         format = "ssh";
         ssh.allowedSignersFile = "~/.ssh/allowed_signers";
       };
-      # pull.rebase = true;
     };
     signing = {
-      # key = userConfig.gitKey;
       key = "~/.ssh/id_ed25519.pub";
       signByDefault = true;
     };
@@ -39,16 +38,4 @@
       "local.*"
     ];
   };
-
-  # programs.delta = {
-  #   enable = true;
-  #   enableGitIntegration = true;
-  #   options = {
-  #     keep-plus-minus-markers = true;
-  #     light = false;
-  #     line-numbers = true;
-  #     navigate = true;
-  #     width = 280;
-  #   };
-  # };
 }

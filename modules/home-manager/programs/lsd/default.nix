@@ -1,4 +1,3 @@
-{ ... }:
 {
   programs.lsd = {
     enable = true;

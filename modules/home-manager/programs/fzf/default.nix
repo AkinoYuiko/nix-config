@@ -1,9 +1,8 @@
 { pkgs, ... }:
 let
-  copyCmd = if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
+  copyCommand = if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
 in
 {
-  # Install fzf via home-manager module
   programs.fzf = {
     enable = true;
 
@@ -12,7 +11,7 @@ in
       "--bind '?:toggle-preview'"
       "--bind 'ctrl-a:select-all'"
       "--bind 'ctrl-e:execute(echo {+} | xargs -o nvim)'"
-      "--bind 'ctrl-y:execute-silent(echo {+} | ${copyCmd})'"
+      "--bind 'ctrl-y:execute-silent(echo {+} | ${copyCommand})'"
       "--height=40%"
       "--info=inline"
       "--layout=reverse"

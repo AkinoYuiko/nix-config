@@ -1,9 +1,9 @@
 {
-  pkgs,
   lib,
+  pkgs,
   ...
-}: {
-  # Install gpg via home-manager module
+}:
+{
   programs.gpg = {
     enable = true;
     settings = {
@@ -35,6 +35,5 @@
     enable = true;
     defaultCacheTtl = 86400;
     enableSshSupport = true;
-    # pinentry.package = lib.mkDefault pkgs.pinentry-gnome3;
   };
 }

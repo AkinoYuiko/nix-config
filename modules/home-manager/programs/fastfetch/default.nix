@@ -1,14 +1,9 @@
-{...}: {
-  # Install and configure fastfetch via home-manager module
+{
   programs.fastfetch = {
     enable = true;
     settings = {
-      logo = {
-        type = "none";
-      };
-      display = {
-        separator = "->   ";
-      };
+      logo.type = "none";
+      display.separator = "->   ";
       modules = [
         {
           type = "title";
