@@ -49,22 +49,22 @@
           name = "momo";
         };
       };
-      # Function for NixOS system configuration
-      mkNixosConfiguration =
-        username: hostname:
-        nixpkgs.lib.nixosSystem {
-          useGlobalPkgs = true;
-          useUserPackages = true;
-          specialArgs = {
-            inherit inputs outputs hostname;
-            userConfig = users.${username};
-            nixosModules = "${self}/modules/nixos";
-          };
-          modules = [
-            { nixpkgs.config = nixpkgsConfig; }
-            ./hosts/${hostname}
-          ];
-        };
+      # NixOS system configuration is currently disabled.
+      # mkNixosConfiguration =
+      #   username: hostname:
+      #   nixpkgs.lib.nixosSystem {
+      #     useGlobalPkgs = true;
+      #     useUserPackages = true;
+      #     specialArgs = {
+      #       inherit inputs outputs hostname;
+      #       userConfig = users.${username};
+      #       nixosModules = "${self}/modules/nixos";
+      #     };
+      #     modules = [
+      #       { nixpkgs.config = nixpkgsConfig; }
+      #       ./hosts/${hostname}
+      #     ];
+      #   };
       # Function for nix-darwin system configuration
       mkDarwinConfiguration =
         username: hostname:
@@ -103,9 +103,10 @@
         };
     in
     {
-      nixosConfigurations = {
-        "nixos" = mkNixosConfiguration "momo" "nixos";
-      };
+      # NixOS output is currently disabled.
+      # nixosConfigurations = {
+      #   "nixos" = mkNixosConfiguration "momo" "nixos";
+      # };
 
       darwinConfigurations = {
         "moni" = mkDarwinConfiguration "momo" "moni";
