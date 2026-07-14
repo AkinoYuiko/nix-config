@@ -35,8 +35,6 @@
     let
       inherit (nixpkgs) lib;
 
-      nixpkgsConfig.allowUnfree = true;
-
       users.momo = {
         name = "momo";
         fullName = "Civi";
@@ -59,20 +57,14 @@
         { username, ... }:
         darwin.lib.darwinSystem {
           specialArgs = mkSpecialArgs username;
-          modules = [
-            { nixpkgs.config = nixpkgsConfig; }
-            ./hosts/${hostname}
-          ];
+          modules = [ ./hosts/${hostname} ];
         };
 
       mkHomeConfiguration =
         hostname:
         { system, username, ... }:
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-            config = nixpkgsConfig;
-          };
+          pkgs = import nixpkgs { inherit system; };
           extraSpecialArgs = mkSpecialArgs username;
           modules = [
             ./home/${username}/${hostname}
