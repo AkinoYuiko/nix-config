@@ -1,13 +1,6 @@
-{ nhModules, ... }:
 {
-  imports = [
-    "${nhModules}/common"
-  ];
+  imports = [ ../../../modules/home-manager/common ];
 
-
-  # Enable home-manager
   programs.home-manager.enable = true;
-
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "26.11";
 }

@@ -63,10 +63,7 @@
         hostname:
         { username, ... }:
         darwin.lib.darwinSystem {
-          specialArgs = mkSpecialArgs username // {
-            inherit hostname;
-            darwinModules = ./modules/darwin;
-          };
+          specialArgs = mkSpecialArgs username;
           modules = [
             { nixpkgs.config = nixpkgsConfig; }
             ./hosts/${hostname}
@@ -81,9 +78,7 @@
             inherit system;
             config = nixpkgsConfig;
           };
-          extraSpecialArgs = mkSpecialArgs username // {
-            nhModules = ./modules/home-manager;
-          };
+          extraSpecialArgs = mkSpecialArgs username;
           modules = [
             ./home/${username}/${hostname}
             everforest.homeManagerModules.default

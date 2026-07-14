@@ -1,10 +1,6 @@
-{ darwinModules, ... }:
 {
-  imports = [
-    "${darwinModules}/common"
-  ];
+  imports = [ ../../modules/darwin/common ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
-  # Used for backwards compatibility, please read the changelog before changing.
   system.stateVersion = 7;
 }
