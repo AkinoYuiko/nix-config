@@ -22,14 +22,10 @@
       };
     };
 
-    codex-nvim = {
-      url = "github:johnseth97/codex.nvim";
-      flake = false;
-    };
   };
 
   outputs =
-    inputs@{
+    {
       darwin,
       everforest,
       home-manager,
@@ -55,7 +51,6 @@
       };
 
       mkSpecialArgs = username: {
-        inherit inputs;
         userConfig = users.${username};
       };
 
