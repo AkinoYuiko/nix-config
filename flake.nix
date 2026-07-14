@@ -1,24 +1,27 @@
 {
   description = "momo nix-darwin system flake";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    # nix-darwin
+
     darwin = {
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # home manager
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Everforest NixOS
+
     everforest = {
       url = "github:AkinoYuiko/everforest-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
-    # Codex.nvin
+
     codex-nvim = {
       url = "github:johnseth97/codex.nvim";
       flake = false;
@@ -26,75 +29,60 @@
   };
 
   outputs =
-    {
-      self,
+    inputs@{
       darwin,
+      everforest,
       home-manager,
       nixpkgs,
-      everforest,
       ...
-    }@inputs:
+    }:
     let
-      inherit (self) outputs;
-      nixpkgsConfig = {
-        allowUnfree = true;
+      inherit (nixpkgs) lib;
+
+      nixpkgsConfig.allowUnfree = true;
+
+      users.momo = {
+        name = "momo";
+        fullName = "Civi";
+        email = "19486398+angribot@users.noreply.github.com";
+        avatar = ./files/avatar.jpg;
+        wallpaper = ./files/wallpaper.png;
       };
-      # Define user configurations
-      users = {
-        momo = {
-          avatar = ./files/avatar.jpg;
-          wallpaper = ./files/wallpaper.png;
-          email = "19486398+angribot@users.noreply.github.com";
-          fullName = "Civi";
-          name = "momo";
-        };
+
+      hosts.moni = {
+        username = "momo";
+        system = "aarch64-darwin";
       };
-      # NixOS system configuration is currently disabled.
-      # mkNixosConfiguration =
-      #   username: hostname:
-      #   nixpkgs.lib.nixosSystem {
-      #     useGlobalPkgs = true;
-      #     useUserPackages = true;
-      #     specialArgs = {
-      #       inherit inputs outputs hostname;
-      #       userConfig = users.${username};
-      #       nixosModules = "${self}/modules/nixos";
-      #     };
-      #     modules = [
-      #       { nixpkgs.config = nixpkgsConfig; }
-      #       ./hosts/${hostname}
-      #     ];
-      #   };
-      # Function for nix-darwin system configuration
+
+      mkSpecialArgs = username: {
+        inherit inputs;
+        userConfig = users.${username};
+      };
+
       mkDarwinConfiguration =
-        username: hostname:
+        hostname:
+        { username, ... }:
         darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit inputs outputs hostname;
-            userConfig = users.${username};
-            darwinModules = "${self}/modules/darwin";
+          specialArgs = mkSpecialArgs username // {
+            inherit hostname;
+            darwinModules = ./modules/darwin;
           };
           modules = [
-            {
-              nixpkgs.config = nixpkgsConfig;
-            }
+            { nixpkgs.config = nixpkgsConfig; }
             ./hosts/${hostname}
           ];
         };
 
-      # Function for Home Manager configuration
       mkHomeConfiguration =
-        system: username: hostname:
+        hostname:
+        { system, username, ... }:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             inherit system;
             config = nixpkgsConfig;
-            # overlays = [ ];
           };
-          extraSpecialArgs = {
-            inherit inputs outputs;
-            userConfig = users.${username};
-            nhModules = "${self}/modules/home-manager";
+          extraSpecialArgs = mkSpecialArgs username // {
+            nhModules = ./modules/home-manager;
           };
           modules = [
             ./home/${username}/${hostname}
@@ -103,17 +91,11 @@
         };
     in
     {
-      # NixOS output is currently disabled.
-      # nixosConfigurations = {
-      #   "nixos" = mkNixosConfiguration "momo" "nixos";
-      # };
+      darwinConfigurations = lib.mapAttrs mkDarwinConfiguration hosts;
 
-      darwinConfigurations = {
-        "moni" = mkDarwinConfiguration "momo" "moni";
-      };
-
-      homeConfigurations = {
-        "momo@moni" = mkHomeConfiguration "aarch64-darwin" "momo" "moni";
-      };
+      homeConfigurations = lib.mapAttrs' (
+        hostname: hostConfig:
+        lib.nameValuePair "${hostConfig.username}@${hostname}" (mkHomeConfiguration hostname hostConfig)
+      ) hosts;
     };
 }
