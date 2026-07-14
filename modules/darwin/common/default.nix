@@ -3,89 +3,73 @@
   userConfig,
   ...
 }:
+let
+  inherit (userConfig) name;
+in
 {
-  # Nix settings
+  imports = [ ../homebrew ];
+
   nix = {
-    settings = {
-      experimental-features = "nix-command flakes";
-    };
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     optimise.automatic = true;
   };
 
-  # User configuration
-  users.users.${userConfig.name} = {
-    name = userConfig.name;
-    home = "/Users/${userConfig.name}";
+  users.users.${name} = {
+    inherit name;
+    home = "/Users/${name}";
   };
 
-  # Add ability to use TouchID for sudo
-  security.pam.services.sudo_local.touchIdAuth = true;
+  security = {
+    pam.services.sudo_local.touchIdAuth = true;
+    sudo.extraConfig = "${name} ALL = (ALL) NOPASSWD: ALL";
+  };
 
-  # Passwordless sudo
-  security.sudo.extraConfig = "${userConfig.name}    ALL = (ALL) NOPASSWD: ALL";
-
-  # System settings
   system = {
-    # activationScripts.postUserActivation.text = ''
-    #   # Following line should allow us to avoid a logout/login cycle
-    #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-    # '';
-    defaults = {
-      CustomUserPreferences = {
-        "com.apple.desktopservices" = {
-          # Avoid creating .DS_Store files on network or USB volumes
-          DSDontWriteNetworkStores = true;
-          DSDontWriteUSBStores = true;
-        };
-        "com.apple.AdLib" = {
-          allowApplePersonalizedAdvertising = false;
-        };
-        "com.apple.SoftwareUpdate" = {
-          AutomaticCheckEnabled = true;
-          # Check for software updates daily, not just once per week
-          ScheduleFrequency = 1;
-          # Download newly available updates in background
-          AutomaticDownload = 1;
-          # Install System data files & security updates
-          CriticalUpdateInstall = 1;
-        };
-        "com.apple.commerce".AutoUpdate = true;
+    defaults.CustomUserPreferences = {
+      "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
+      "com.apple.commerce".AutoUpdate = true;
+      "com.apple.desktopservices" = {
+        DSDontWriteNetworkStores = true;
+        DSDontWriteUSBStores = true;
+      };
+      "com.apple.SoftwareUpdate" = {
+        AutomaticCheckEnabled = true;
+        AutomaticDownload = 1;
+        CriticalUpdateInstall = 1;
+        ScheduleFrequency = 1;
       };
     };
-    primaryUser = userConfig.name;
+    primaryUser = name;
   };
 
-  environment.shells = [ pkgs.fish ];
+  environment = {
+    shells = [ pkgs.fish ];
+    systemPackages = with pkgs; [
+      curl
+      dig
+      fd
+      ffmpeg
+      jq
+      nixfmt
+      ripgrep
+      stylua
+      tealdeer
+      tirith
+      unzip
+      wget
+      zoxide
+    ];
+  };
 
-  environment.systemPackages = with pkgs; [
-    curl
-    dig
-    fd
-    ffmpeg
-    # gh
-    # jd-diff-patch
-    jq
-    # keychain
-    nixfmt
-    ripgrep
-    stylua
-    tealdeer
-    tirith
-    unzip
-    wget
-    zoxide
-  ];
   fonts.packages = with pkgs; [
-    maple-mono.NF-CN
     jetbrains-mono
     lxgw-wenkai
+    maple-mono.NF-CN
     smiley-sans
   ];
 
-  # Enable alternative shell support in nix-darwin.
   programs.fish.enable = true;
-
-  imports = [
-    ../homebrew
-  ];
 }
