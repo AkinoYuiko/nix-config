@@ -45,24 +45,7 @@ in
     primaryUser = name;
   };
 
-  environment = {
-    shells = [ pkgs.fish ];
-    systemPackages = with pkgs; [
-      curl
-      dig
-      fd
-      ffmpeg
-      jq
-      nixfmt
-      ripgrep
-      stylua
-      tealdeer
-      tirith
-      unzip
-      wget
-      zoxide
-    ];
-  };
+  environment.shells = [ pkgs.fish ];
 
   fonts.packages = with pkgs; [
     jetbrains-mono

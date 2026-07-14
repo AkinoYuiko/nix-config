@@ -28,6 +28,21 @@ in
   home = {
     username = name;
     homeDirectory = "${if isDarwin then "/Users" else "/home"}/${name}";
+    packages = with pkgs; [
+      curl
+      dig
+      fd
+      ffmpeg
+      jq
+      nixfmt
+      ripgrep
+      stylua
+      tealdeer
+      tirith
+      unzip
+      wget
+      zoxide
+    ];
   };
 
   everforest = {
