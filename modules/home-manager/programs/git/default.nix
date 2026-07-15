@@ -23,13 +23,8 @@ in
         "https://github.com".helper = credentialHelper;
         "https://gist.github.com".helper = credentialHelper;
       };
-      gpg = {
-        format = "ssh";
-        ssh.allowedSignersFile = "~/.ssh/allowed_signers";
-      };
     };
     signing = {
-      key = "~/.ssh/id_ed25519.pub";
       signByDefault = true;
     };
     ignores = [

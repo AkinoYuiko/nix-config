@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}:
+{ ... }:
 {
   programs.gpg = {
     enable = true;
@@ -19,21 +15,13 @@
       no-comments = true;
       no-emit-version = true;
       no-greeting = true;
-      # keyid-format = "0xlong";
       keyid-format = "LONG";
       list-options = "show-uid-validity";
       verify-options = "show-uid-validity";
       with-key-origin = true;
       require-cross-certification = true;
       no-symkey-cache = true;
-      use-agent = true;
       throw-keyids = true;
     };
-  };
-
-  services.gpg-agent = lib.mkIf (!pkgs.stdenv.hostPlatform.isDarwin) {
-    enable = true;
-    defaultCacheTtl = 86400;
-    enableSshSupport = true;
   };
 }
