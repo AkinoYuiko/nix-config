@@ -80,7 +80,7 @@ darwin-rebuild: ## Activate the nix-darwin configuration
 	sudo darwin-rebuild switch --flake $(DARWIN_TARGET)
 
 home-manager-switch: ## Activate the Home Manager configuration
-	home-manager switch --flake $(HOME_TARGET)
+	$(NIX_CMD) run --inputs-from . home-manager -- switch --flake $(HOME_TARGET)
 
 switch: ## Build and activate system and Home Manager configurations
 	@$(MAKE) --no-print-directory build
