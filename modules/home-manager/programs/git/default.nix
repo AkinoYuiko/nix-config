@@ -29,8 +29,6 @@ in
     };
     ignores = [
       ".DS_Store"
-      "local-*"
-      "local.*"
     ];
   };
 }
