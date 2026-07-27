@@ -1,12 +1,11 @@
 {
-  pkgs,
   userConfig,
   ...
 }:
 let
   credentialHelper = [
     ""
-    "!${pkgs.gh}/bin/gh auth git-credential"
+    "!gh auth git-credential"
   ];
 in
 {
