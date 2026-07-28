@@ -46,6 +46,10 @@ in
   };
 
   environment.shells = [ pkgs.fish ];
+  environment.variables = {
+    XDG_CONFIG_HOME = "$HOME/.config";
+    ZDOTDIR         = "$HOME/.config/zsh";
+  };
 
   fonts.packages = with pkgs; [
     jetbrains-mono
