@@ -3,44 +3,75 @@
     enable = true;
     enableFishIntegration = true;
     settings = {
-      format = "$username$directory$git_branch$git_state$git_status$cmd_duration$line_break$python$character";
+      "$schema" = "https://starship.rs/config-schema.json";
+
       add_newline = false;
-      scan_timeout = 2000;
-      username.format = "[$user]($style) ";
-      directory.style = "blue";
-      character = {
-        success_symbol = "[❯](purple)";
-        error_symbol = "[❯](red)";
-        vimcmd_symbol = "[❮](green)";
+      format = "$directory$os$git_branch$git_status$nodejs$rust$golang$php $character";
+
+      os = {
+        disabled = false;
+        style = "grey2";
+        format = "[$symbol]($style) ";
+        symbols = {
+          Alpine = "";
+          Arch = "󰣇";
+          Artix = "󰣇";
+          CachyOS = "󰣇";
+          Debian = "";
+          Macos = "";
+          Ubuntu = "󰕈";
+        };
       };
+
+      directory = {
+        style = "aqua";
+        read_only_style = "orange";
+        format = "[$path]($style)[$read_only]($read_only_style) ";
+        truncation_length = 4;
+        truncate_to_repo = true;
+      };
+
       git_branch = {
-        format = "[$branch]($style)";
-        style = "bright-black";
+        symbol = "";
+        format = "[$symbol $branch](bold blue) ";
       };
+
       git_status = {
-        format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](purple) ($ahead_behind$stashed)]($style)";
-        style = "cyan";
-        conflicted = "​";
-        untracked = "​";
-        modified = "​";
-        staged = "​";
-        renamed = "​";
-        deleted = "​";
-        stashed = "≡";
+        format = "($ahead_behind$staged$modified$untracked$deleted$conflicted)";
+        ahead = "[⇡$count ](bold green)";
+        behind = "[⇣$count ](bold green)";
+        diverged = "[⇡$ahead_count⇣$behind_count ](bold blue)";
+        staged = "[+$count ](bold purple)";
+        modified = "[●$count ](bold purple)";
+        untracked = "[?$count ](bold yellow)";
+        deleted = "[✘$count ](bold red)";
+        conflicted = "[⚡$count ](bold red)";
       };
-      git_state = {
-        format = "[$state( $progress_current/$progress_total)]($style)";
-        style = "bright-black";
+
+      nodejs = {
+        symbol = "";
+        format = "[$symbol $version](grey1) ";
       };
-      cmd_duration = {
-        format = "[$duration]($style) ";
-        style = "yellow";
+
+      rust = {
+        symbol = "";
+        format = "[$symbol $version](grey1) ";
       };
-      python = {
-        format = "[$virtualenv]($style) ";
-        style = "bright-black";
-        detect_extensions = [ ];
-        detect_files = [ ];
+
+      golang = {
+        symbol = "";
+        format = "[$symbol $version](grey1) ";
+      };
+
+      php = {
+        symbol = "";
+        format = "[$symbol $version](grey1) ";
+      };
+
+      character = {
+        success_symbol = "[❯](statusline2)";
+        error_symbol = "[❯](statusline3)";
+        vimcmd_symbol = "[❮](statusline2)";
       };
     };
   };
