@@ -1,24 +1,22 @@
-{ pkgs, ... }:
-let
-  copyCommand = if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "wl-copy";
-in
 {
   programs.fzf = {
     enable = true;
 
-    defaultCommand = "fd --type f --hidden --follow --exclude .git";
+    defaultCommand = "fd --type f --hidden --strip-cwd-prefix";
     defaultOptions = [
-      "--bind '?:toggle-preview'"
-      "--bind 'ctrl-a:select-all'"
-      "--bind 'ctrl-e:execute(echo {+} | xargs -o nvim)'"
-      "--bind 'ctrl-y:execute-silent(echo {+} | ${copyCommand})'"
-      "--height=40%"
-      "--info=inline"
+      "--height=60%"
       "--layout=reverse"
-      "--multi"
-      "--preview '([[ -f {} ]] && (bat --color=always --style=numbers,changes {} || cat {})) || ([[ -d {} ]] && (ls -la --color=always {})) || echo {} 2> /dev/null | head -200'"
-      "--preview-window=:hidden"
-      "--prompt='~ ' --pointer='▶' --marker='✓'"
+      "--border=rounded"
+      "--prompt='  '"
+      "--pointer='  '"
+      "--preview-window=right:65%:wrap:border-left"
     ];
+
+    fileWidget = {
+      command = "fd --type f --hidden --strip-cwd-prefix";
+      options = [
+        "--preview 'bat --color=always --style=plain,numbers --line-range=:500 {}'"
+      ];
+    };
   };
 }
