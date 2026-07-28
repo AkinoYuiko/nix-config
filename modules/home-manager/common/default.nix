@@ -26,6 +26,8 @@ in
 
   systemd.user.startServices = lib.mkIf (!isDarwin) "sd-switch";
 
+  xdg.enable = true;
+
   home = {
     username = name;
     homeDirectory = "${if isDarwin then "/Users" else "/home"}/${name}";
