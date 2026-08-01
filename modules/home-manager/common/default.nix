@@ -19,6 +19,7 @@ in
     ../programs/lazygit
     ../programs/lsd
     ../programs/neovim
+    ../programs/pi
     ../programs/starship
     ../programs/tmux
     ../programs/yazi
