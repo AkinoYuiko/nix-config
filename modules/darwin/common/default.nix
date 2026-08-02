@@ -20,6 +20,7 @@ in
   users.users.${name} = {
     inherit name;
     home = "/Users/${name}";
+    shell = pkgs.zsh;
   };
 
   security = {
@@ -45,7 +46,10 @@ in
     primaryUser = name;
   };
 
-  environment.shells = [ pkgs.fish ];
+  environment.shells = with pkgs; [
+    fish
+    zsh
+  ];
   environment.variables = {
     XDG_CONFIG_HOME = "$HOME/.config";
     ZDOTDIR = "$HOME/.config/zsh";
@@ -58,5 +62,8 @@ in
     smiley-sans
   ];
 
-  programs.fish.enable = true;
+  programs = {
+    fish.enable = true;
+    zsh.enable = true;
+  };
 }
