@@ -38,8 +38,8 @@
       # Clear screen with prefix + l
       bind C-l send-keys 'C-l'
 
-      # Open a project in a separate window
-      bind-key -n C-f run-shell "tmux new-window -t 10 -n project-selector cd-to-project"
+      # Open a project in a separate window (disabled)
+      # bind-key -n C-f run-shell "tmux new-window -t 10 -n project-selector cd-to-project"
 
       # Enable focus-events
       set -g focus-events on
