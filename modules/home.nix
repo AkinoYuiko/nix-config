@@ -20,15 +20,12 @@ in
     ./programs/pi.nix
     ./programs/starship.nix
     ./programs/tmux.nix
-    ./programs/wezterm.nix
+    # ./programs/wezterm.nix
     ./programs/yazi.nix
   ];
 
   programs.home-manager.enable = true;
   home.stateVersion = "26.11";
-
-  xdg.enable = true;
-
   home = {
     username = name;
     homeDirectory = "/Users/${name}";
@@ -53,4 +50,6 @@ in
     enable = true;
     contrast = "hard";
   };
+
+  xdg.enable = true;
 }
