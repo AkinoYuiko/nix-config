@@ -7,7 +7,8 @@ let
   inherit (userConfig) name;
 in
 {
-  imports = [ ../homebrew ];
+  nixpkgs.hostPlatform = "aarch64-darwin";
+  system.stateVersion = 7;
 
   nix = {
     settings.experimental-features = [
@@ -65,5 +66,16 @@ in
   programs = {
     fish.enable = true;
     zsh.enable = true;
+  };
+
+  homebrew = {
+    enable = true;
+    enableFishIntegration = true;
+    global.brewfile = false;
+    onActivation = {
+      autoUpdate = false;
+      upgrade = false;
+      cleanup = "none";
+    };
   };
 }
