@@ -85,3 +85,17 @@ The current declared outputs are `.#moni` and `.#momo@moni`.
   for a version migration.
 - Do not edit `flake.lock` manually.
 - After changing the Makefile, verify both `make help` and `make check`.
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs are tracked as GitHub issues (via the `gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Five canonical triage roles, each labelled with its own name: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout: one `CONTEXT.md` plus `docs/adr/` at the repo root. See `docs/agents/domain.md`.
