@@ -1,13 +1,6 @@
 # Default entry point
 .DEFAULT_GOAL := help
 
-# Configuration targets. Override from the command line when necessary, for
-# example: make switch HOST=moni USERNAME=momo
-HOST ?= $(shell hostname -s)
-USERNAME ?= $(shell id -un)
-DARWIN_TARGET ?= .\#$(HOST)
-HOME_TARGET ?= .\#$(USERNAME)@$(HOST)
-
 # Tooling
 NIX ?= nix
 NIXFMT ?= nixfmt
@@ -54,11 +47,11 @@ build: ## Build Darwin and Home Manager configurations
 
 darwin-build: ## Build the nix-darwin configuration
 	@printf 'Building nix-darwin configuration...\n'
-	@$(NIX_CMD) build --no-link '.#darwinConfigurations.$(HOST).system'
+	@$(NIX_CMD) build --no-link '.#darwinConfigurations.moni.system'
 
 home-manager-build: ## Build the Home Manager configuration
 	@printf 'Building Home Manager configuration...\n'
-	@$(NIX_CMD) build --no-link '.#homeConfigurations."$(USERNAME)@$(HOST)".activationPackage'
+	@$(NIX_CMD) build --no-link '.#homeConfigurations."momo@moni".activationPackage'
 
 # Installation and bootstrap
 install-nix: ## Install the Nix package manager
@@ -66,7 +59,7 @@ install-nix: ## Install the Nix package manager
 		https://nixos.org/nix/install | sh -s -- --daemon --yes
 
 install-nix-darwin: ## Install and activate nix-darwin
-	sudo $(NIX_CMD) run nix-darwin -- switch --flake $(DARWIN_TARGET)
+	sudo $(NIX_CMD) run nix-darwin -- switch --flake .#moni
 
 bootstrap-mac: ## Install Nix and nix-darwin
 	@$(MAKE) --no-print-directory install-nix
@@ -77,10 +70,10 @@ bootstrap-mac: ## Install Nix and nix-darwin
 # These targets change the running machine. Use them only when activation is
 # explicitly requested.
 darwin-rebuild: ## Activate the nix-darwin configuration
-	sudo darwin-rebuild switch --flake $(DARWIN_TARGET)
+	sudo darwin-rebuild switch --flake .#moni
 
 home-manager-switch: ## Activate the Home Manager configuration
-	$(NIX_CMD) run --inputs-from . home-manager -- switch --flake $(HOME_TARGET)
+	$(NIX_CMD) run --inputs-from . home-manager -- switch --flake .#momo@moni
 
 switch: ## Build and activate system and Home Manager configurations
 	@$(MAKE) --no-print-directory build
