@@ -15,7 +15,7 @@
     };
 
     everforest = {
-      url = "github:AkinoYuiko/everforest-darwin";
+      url = "github:angribot/everforest-darwin";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
