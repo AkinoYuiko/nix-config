@@ -16,7 +16,7 @@ in
         inherit (userConfig) email;
         name = userConfig.fullName;
       };
-      core.autocrlf = "input";
+      # core.autocrlf = "input";
       init.defaultBranch = "main";
       credential = {
         "https://github.com".helper = credentialHelper;
@@ -28,6 +28,13 @@ in
     };
     ignores = [
       ".DS_Store"
+      ".localized"
+      "__MACOSX/"
+      ".AppleDouble"
+      ".LSOverride"
+      "Icon\r\r"
+      "._*"
+      ".apdisk"
     ];
   };
 }
