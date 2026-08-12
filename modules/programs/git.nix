@@ -32,9 +32,8 @@ in
       "__MACOSX/"
       ".AppleDouble"
       ".LSOverride"
-      "Icon\r\r"
+      "Icon[\r]"
       "._*"
-      ".apdisk"
     ];
   };
 }
