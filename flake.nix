@@ -32,12 +32,17 @@
       ...
     }:
     let
+      system = "aarch64-darwin";
       userConfig = {
         name = "momo";
         fullName = "Civi";
         email = "19486398+angribot@users.noreply.github.com";
         avatar = ./files/avatar.jpg;
         wallpaper = ./files/wallpaper.png;
+      };
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ (import ./overlays/oxlint.nix) ];
       };
     in
     {
@@ -47,7 +52,7 @@
       };
 
       homeConfigurations."momo@moni" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "aarch64-darwin"; };
+        inherit pkgs;
         extraSpecialArgs = { inherit userConfig; };
         modules = [
           ./modules/home.nix
