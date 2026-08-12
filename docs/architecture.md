@@ -13,6 +13,7 @@ This repository manages the `moni` macOS host for user `momo` with nix-darwin an
 | `modules/programs/<program>.nix` | Program modules. One per user-level program. | Keep each program isolated; add its import to `modules/home.nix` when enabling it. |
 | `modules/programs/neovim/` | Neovim sub-modules. `packages.nix` lists LSPs/formatters/tools; `plugins.nix` lists plugins. | Keep plugin declarations out of `packages.nix`. |
 | `files/` | Static assets. | Reference files with Nix paths; do not generate build output here. |
+| `overlays/` | Package overrides applied to the Home Manager package set. | Add overrides only when stock nixpkgs is unsuitable; keep the rationale in the file header. |
 
 ## Makefile target reference
 
