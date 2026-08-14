@@ -27,9 +27,10 @@ _Avoid_: Machine, computer, device
 
 **User**:
 The person this configuration is built for. A User carries the person's
-identity (name, full name, email, avatar, wallpaper); the OS account is
-derived from the User, never declared separately.
+identity (name, full name, email); the OS account is derived from the
+User, never declared separately.
 _Avoid_: Account, profile, username
+_See_: ADR-0001 (identity declared once, injected into both layers)
 
 **Platform**:
 The architecture a Host runs on.

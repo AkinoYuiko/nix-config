@@ -4,7 +4,7 @@ nix-darwin + Home Manager flake for `momo@moni`. Use the root `Makefile` for all
 operations — do not bypass it with raw `darwin-rebuild`, `home-manager switch`,
 `nix flake check`, `nix flake update`, or `nix-collect-garbage`.
 
-Full architecture and target reference: [`docs/architecture.md`](docs/architecture.md).
+Full architecture reference: [`docs/architecture.md`](docs/architecture.md).
 
 ## Workflow
 
@@ -17,9 +17,9 @@ Full architecture and target reference: [`docs/architecture.md`](docs/architectu
 ## Safety
 
 - `make format`, `make check`, and `make flake-check` do **not** activate changes.
-- `make darwin-rebuild`, `make home-manager-switch`, and `make switch` mutate the running machine — never run them merely to validate edits.
+- `make darwin-rebuild`, `make home-manager-switch`, and `make switch` mutate the running machine.
 - System config: `modules/darwin.nix`. User config: `modules/home.nix` + `modules/programs/`.
-- Do not edit `flake.lock` manually; use `make flake-update`.
+- Edit `flake.lock` only through `make flake-update`.
 - Preserve `system.stateVersion` and `home.stateVersion` unless the user asks for a version migration.
 - After changing the Makefile, verify both `make help` and `make check`.
 

@@ -54,14 +54,14 @@ home-manager-build: ## Build the Home Manager configuration
 	@$(NIX_CMD) build --no-link '.#homeConfigurations."momo@moni".activationPackage'
 
 # Installation and bootstrap
-install-nix: ## Install the Nix package manager
+install-nix: ## Install Nix in daemon mode (bootstrap only; never on a managed machine)
 	curl --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
 		https://nixos.org/nix/install | sh -s -- --daemon --yes
 
-install-nix-darwin: ## Install and activate nix-darwin
+install-nix-darwin: ## Install and activate nix-darwin (bootstrap only; requires sudo)
 	sudo $(NIX_CMD) run nix-darwin -- switch --flake .#moni
 
-bootstrap-mac: ## Install Nix and nix-darwin
+bootstrap-mac: ## Install Nix and nix-darwin (bootstrap only; new-machine setup only)
 	@$(MAKE) --no-print-directory install-nix
 	@. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; \
 		$(MAKE) --no-print-directory install-nix-darwin
@@ -69,20 +69,20 @@ bootstrap-mac: ## Install Nix and nix-darwin
 # Activation
 # These targets change the running machine. Use them only when activation is
 # explicitly requested.
-darwin-rebuild: ## Activate the nix-darwin configuration
+darwin-rebuild: ## Activate the nix-darwin configuration (only on explicit request; requires sudo)
 	sudo darwin-rebuild switch --flake .#moni
 
-home-manager-switch: ## Activate the Home Manager configuration
+home-manager-switch: ## Activate the Home Manager configuration (only on explicit request)
 	$(NIX_CMD) run --inputs-from . home-manager -- switch --flake .#momo@moni
 
-switch: ## Build and activate system and Home Manager configurations
+switch: ## Build and activate system and Home Manager configurations (only on explicit request)
 	@$(MAKE) --no-print-directory build
 	@$(MAKE) --no-print-directory darwin-rebuild
 	@$(MAKE) --no-print-directory home-manager-switch
 
 # Maintenance
-flake-update: ## Update all flake inputs
+flake-update: ## Update all flake inputs (only on explicit request)
 	$(NIX_CMD) flake update
 
-nix-gc: ## Delete old generations and collect garbage
+nix-gc: ## Delete old generations and collect garbage (only on explicit request)
 	nix-collect-garbage --delete-old
