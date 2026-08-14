@@ -10,7 +10,7 @@
 final: prev:
 let
   inherit (final) fetchurl lib stdenv;
-  version = "1.77.0";
+  version = "1.78.0";
 in
 {
   oxlint = stdenv.mkDerivation {
@@ -19,7 +19,7 @@ in
 
     src = fetchurl {
       url = "https://github.com/oxc-project/oxc/releases/download/apps_v${version}/oxlint-aarch64-apple-darwin.tar.gz";
-      hash = "sha256-725r1fzzwg65+BIOVZQIolLE/6C6pK+b/xeAxFuOK/Y=";
+      hash = "sha256-YEXHKawdMfKn8C7HhMXFYZnQrhBl3fZRWw8CceMgrXM=";
     };
 
     dontUnpack = true;
