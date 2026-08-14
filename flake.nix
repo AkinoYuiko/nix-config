@@ -37,8 +37,6 @@
         name = "momo";
         fullName = "Civi";
         email = "19486398+angribot@users.noreply.github.com";
-        avatar = ./files/avatar.jpg;
-        wallpaper = ./files/wallpaper.png;
       };
       pkgs = import nixpkgs {
         inherit system;
